@@ -16,7 +16,7 @@ or
 git clone https://github.com/aiops/logsight-install.git
 ```
 
-Switch to the ```logsight-install``` directors:
+Switch to the ```logsight-install``` directory:
 
 ```bash
 cd logsight-install
@@ -51,11 +51,10 @@ Run the ```uninstall.sh``` utility script if you want to uninstall [logsight.ai]
 
 # Documentation
 
-Visit our logsight [docs](https://docs.logsight.ai/#/) for additional information about the installation and configuration of logsight.ai, sending of log data to logsight.ai, or explanation of different dashboards.
+Visit our logsight [docs](https://docs.logsight.ai/#/) for additional information about the installation and configuration of [logsight.ai](https://logsight.ai), sending of log data to [logsight.ai](https://logsight.ai), explanation of the different dashboards, and many more.
 
 # Support
 
 Please use the [GitHub issue tracker](https://github.com/aiops/logsight-install/issues) to report problems encountered during the installation process.
 
-If you have general questions or need support, you can visit [https://logsight.ai](https://logsight.ai) and use the live chat or drop us an[email](mailto:support@logsight.ai?subject=[GitHub]Support Request)
-
+If you have general questions or need support, you can visit [https://logsight.ai](https://logsight.ai) and use the live chat or drop us an [email](mailto:support@logsight.ai?subject=[GitHub]Support%20Request)
