@@ -1,0 +1,62 @@
+---
+version: '3.7'
+services:
+  logsight-backend:
+    image: logsight/logsight-backend:${DOCKER_IMAGE_TAG}
+    env_file:
+      - .env
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOSTNAME}:${POSTGRES_PORT}/${POSTGRES_DB}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - LOGSIGHT_URL=${LOGSIGHT_URL}
+      - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
+    ports:
+      - '${LOGSIGHT_BACKEND_PORT}:${LOGSIGHT_BACKEND_PORT}'
+    networks:
+      - logsight
+
+  logsight:
+    image: logsight/logsight:${DOCKER_IMAGE_TAG}
+    depends_on:
+      - logsight-backend
+    env_file:
+      - .env
+    environment:
+      - APP_RPC_ZMQ_ENDPOINT=tcp://*:${APP_RPC_ZMQ_PORT}
+      - LOGS_STREAM_ZMQ_ENDPOINT=tcp://${LOGSIGHT_BACKEND_HOSTNAME}:${LOGS_STREAM_ZMQ_PORT}
+      - LOGS_CTRL_RPC_IN_ZMQ_ENDPOINT=tcp://${LOGSIGHT_BACKEND_HOSTNAME}:${LOGS_CTRL_RPC_IN_ZMQ_PORT}
+      - LOGS_CTRL_RPC_OUT_ZMQ_ENDPOINT=tcp://${LOGSIGHT_BACKEND_HOSTNAME}:${LOGS_CTRL_RPC_OUT_ZMQ_PORT}
+      - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
+    networks:
+      - logsight
+
+  logsight-result-api:
+    image: logsight/logsight-result-api:${DOCKER_IMAGE_TAG}
+    depends_on:
+      - logsight
+    env_file:
+      - .env
+    environment:
+      - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
+    ports:
+      - "${RESULT_API_PORT}:${RESULT_API_PORT}"
+    networks:
+      - logsight
+
+  logsight-frontend:
+    image: logsight/logsight-frontend:${DOCKER_IMAGE_TAG}
+    depends_on:
+      - logsight-backend
+    env_file:
+      - .env
+    environment:
+      - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
+    ports:
+      - '${LOGSIGHT_FRONTEND_PORT}:${LOGSIGHT_FRONTEND_PORT}'
+    networks:
+      - logsight
+
+networks:
+  logsight:
+    driver: bridge

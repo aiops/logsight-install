@@ -24,6 +24,7 @@ if [ "$#" -lt 1 ]; then
     license_missing
 fi
 check_license "$1"
+export ACCEPT_LOGSIGHT_LICENSE="$1"
 
 # Promt for elasticsearch password if the env variable is not set
 if [ -z ${ELASTICSEARCH_PASSWORD+x} ]; then
@@ -46,4 +47,4 @@ fi
 export POSTGRES_PASSWORD
 
 cd "$home/docker-compose"
-ACCEPT_LOGSIGHT_LICENSE="$1" docker-compose up -d
+docker-compose up -d
