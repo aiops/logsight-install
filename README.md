@@ -2,7 +2,7 @@
 
  <a href="https://logsight.ai/"><img src="https://logsight.ai/assets/img/logol.png" width="150"/></a>
 
-A collection of scripts and other resources for an on-premise installation of [logsight.ai](https://logsight.ai).
+This repository contains a collection of scripts and other resources for an on-premise installation of [logsight.ai](https://logsight.ai).
 
 Clone this repository
 
@@ -15,6 +15,8 @@ or
 ```bash
 git clone https://github.com/aiops/logsight-install.git
 ```
+
+Switch to the ```logsight-install``` directors:
 
 ```bash
 cd logsight-install
