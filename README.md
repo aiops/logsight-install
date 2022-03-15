@@ -57,4 +57,4 @@ Visit our logsight [docs](https://docs.logsight.ai/#/) for additional informatio
 
 Please use the [GitHub issue tracker](https://github.com/aiops/logsight-install/issues) to report problems encountered during the installation process.
 
-If you have general questions or need support, you can visit [https://logsight.ai](https://logsight.ai) and use the live chat or drop us an [email](mailto:support@logsight.ai?subject=[GitHub]Support%20Request)
+If you have general questions or need support, you can visit [https://logsight.ai](https://logsight.ai) and use the live chat or drop us an [email](mailto:support@logsight.ai?subject=[GitHub]Support%20Request).
