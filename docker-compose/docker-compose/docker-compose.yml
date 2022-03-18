@@ -10,6 +10,8 @@ services:
       - network.host=${ELASTICSEARCH_NETWORK_HOST}
       - cluster.routing.allocation.disk.threshold_enabled=false
       - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     volumes:
       - 'logsight_elasticsearch:/usr/share/elasticsearch/data'
     ports:
