@@ -3,6 +3,7 @@ version: '3.7'
 services:
   logsight-backend:
     image: logsight/logsight-backend:${DOCKER_IMAGE_TAG}
+    restart: always
     env_file:
       - .env
     environment:
@@ -17,10 +18,26 @@ services:
     networks:
       - logsight
 
+  logsight-frontend:
+    image: logsight/logsight-frontend:${DOCKER_IMAGE_TAG}
+    depends_on:
+      - logsight-backend
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
+      - LOGSIGHT_DEPLOYMENT=${LOGSIGHT_DEPLOYMENT_FRONTEND}
+    ports:
+      - '${LOGSIGHT_FRONTEND_PORT}:${LOGSIGHT_FRONTEND_PORT}'
+    networks:
+      - logsight
+
   logsight:
     image: logsight/logsight:${DOCKER_IMAGE_TAG}
     depends_on:
       - logsight-backend
+    restart: always
     env_file:
       - .env
     environment:
@@ -36,26 +53,13 @@ services:
     image: logsight/logsight-result-api:${DOCKER_IMAGE_TAG}
     depends_on:
       - logsight
+    restart: always
     env_file:
       - .env
     environment:
       - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
     ports:
       - "${RESULT_API_PORT}:${RESULT_API_PORT}"
-    networks:
-      - logsight
-
-  logsight-frontend:
-    image: logsight/logsight-frontend:${DOCKER_IMAGE_TAG}
-    depends_on:
-      - logsight-backend
-    env_file:
-      - .env
-    environment:
-      - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
-      - LOGSIGHT_DEPLOYMENT=${LOGSIGHT_DEPLOYMENT_FRONTEND}
-    ports:
-      - '${LOGSIGHT_FRONTEND_PORT}:${LOGSIGHT_FRONTEND_PORT}'
     networks:
       - logsight
 
