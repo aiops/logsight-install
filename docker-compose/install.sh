@@ -19,6 +19,23 @@ check_license() {
     fi
 }
 
+check_dependency_installed() {
+    if [ -z "$(command -v $1)" ]; then
+        echo "Logsight.ai requires $1 to be installed. Please install it on your system and re-run the installation."
+        exit 1
+    fi
+}
+
+check_preconditions() {
+    dependencies="docker docker-compose"
+    for dependency in $dependencies; do
+        check_dependency_installed $dependency
+    done
+}
+
+# Check if the preconditions to install logsight are met
+check_preconditions
+
 # Check if the EULA licens was accepted
 if [ "$#" -lt 1 ]; then
     license_missing
@@ -34,7 +51,7 @@ if [ -z ${ELASTICSEARCH_PASSWORD+x} ]; then
     stty echo
     printf "\n"
 fi
-export ELASTICSEARCH_PASSWORD
+export ELASTICSEARCH_PASSWORD=$ELASTICSEARCH_PASSWORD
 
 # Promt for postgres password if the env variable is not set
 if [ -z ${POSTGRES_PASSWORD+x} ]; then
@@ -44,7 +61,7 @@ if [ -z ${POSTGRES_PASSWORD+x} ]; then
     stty echo
     printf "\n"
 fi
-export POSTGRES_PASSWORD
+export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
 cd "$home/docker-compose"
 docker-compose up -d
