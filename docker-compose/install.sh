@@ -67,6 +67,10 @@ cd "$home/docker-compose"
 docker-compose up -d
 if [ $? -eq 0 ]; then
     echo ""
+    echo "Waiting until all services are ready..."
+    # This will be improved soon
+    sleep 40
+    echo ""
     echo "Logsight.ai was successfully installed. You can access http://localhost:4200"
 fi
 cd "$home"
