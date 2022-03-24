@@ -65,3 +65,8 @@ export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
 cd "$home/docker-compose"
 docker-compose up -d
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "Logsight.ai was successfully installed. You can access http://localhost:4200"
+fi
+cd "$home"

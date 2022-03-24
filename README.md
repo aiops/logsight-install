@@ -4,50 +4,42 @@
 
 This repository contains a collection of scripts and other resources for an on-premise installation of [logsight.ai](https://logsight.ai).
 
-Clone this repository
-
+Clone the repository with git https or ssh:
 ```bash
 git clone git@github.com:aiops/logsight-install.git
 ```
-
-or 
 
 ```bash
 git clone https://github.com/aiops/logsight-install.git
 ```
 
-Switch to the ```logsight-install``` directory:
+Switch into the ```logsight-install``` directory
 
 ```bash
 cd logsight-install
 ```
 
-## Install with docker-compose
+## Installation with docker-compose
 
-All docker-compose, configuration and utility script files to install [logsight.ai](https://logsight.ai) via docker-compose are located in the docker-compose directory.
+We provide all logsight.ai services as [Docker Images](https://hub.docker.com/orgs/logsight/repositories) which you can spin up with docker-compse. All compose, configuration and utility script files are located in the ```docker-compose``` directory.
 
-The easiest way to install [logsight.ai](https://logsight.ai) is to run the utility script ```install.sh```. You need to accept the EULA when installing [logsight.ai](https://logsight.ai) by setting ```accept-license``` as the only command line argument for the script:
+The easiest way to do the installation is to run the utility script ```install.sh```. You need to accept the EULA when installing logsight.ai by setting ```accept-license``` as the only command line argument for the script.
 
 ```bash
 ./docker-compose/install.sh accept-license
 ```
 
-The script will prompt for an Elasticsearch and a PostgreSQL password. Alternatively, it is possible to set the following environment variables before running the script:
+The script will prompt for an Elasticsearch and a PostgreSQL password. Alternatively, it is possible to set the following environment variables before running the script.
 
 ```bash
 export ELASTICSEARCH_PASSWORD=<set a password>
+```
+
+```bash
 export POSTGRES_PASSWORD=<set a password>
 ```
 
-When all services are running, you can access the [logsight.ai](https://logsight.ai) dashboard via [http://localhost:4200](http://localhost:4200).
-
-## Uninstall with docker-compose
-
-Run the ```uninstall.sh``` utility script if you want to uninstall [logsight.ai](https://logsight.ai):
-
-```bash
-./docker-compose/uninstall.sh
-```
+When all services are running, you can access the logsight.ai landing page via [http://localhost:4200](http://localhost:4200).
 
 # Documentation
 
