@@ -26,15 +26,31 @@ check_dependency_installed() {
     fi
 }
 
-check_preconditions() {
-    dependencies="docker docker-compose"
-    for dependency in $dependencies; do
-        check_dependency_installed $dependency
-    done
+check_docker() {
+    check_dependency_installed "docker"
+}
+
+check_docker_compose() {
+    # check if docker-compose is installed
+    if [ -z "$(command -v docker-compose)" ]; then
+        # if not check if docker compose is working
+        docker compose version > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo "docker compose"
+        else
+            echo "Logsight.ai requires docker-compose to be installed. Please install it on your system and re-run the installation."
+            exit 1
+        fi
+    else
+        echo "docker-compose"
+    fi
 }
 
 # Check if the preconditions to install logsight are met
-check_preconditions
+check_docker
+# Check docker compose and set the docker compose command variable
+DOCKER_COMPOSE_CMD="$(check_docker_compose)"
+
 
 # Check if the EULA licens was accepted
 if [ "$#" -lt 1 ]; then
@@ -64,7 +80,7 @@ fi
 export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
 cd "$home/docker-compose"
-docker-compose up -d
+$DOCKER_COMPOSE_CMD up -d
 if [ $? -eq 0 ]; then
     echo ""
     echo "Waiting until all services are ready..."
