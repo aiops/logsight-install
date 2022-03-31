@@ -58,6 +58,7 @@ services:
       - .env
     environment:
       - ACCEPT_LOGSIGHT_LICENSE=${ACCEPT_LOGSIGHT_LICENSE}
+      - ES_QUERY_SIZE=${VERIFICATION_COMPARE_QUERY_SIZE}
     ports:
       - "${RESULT_API_PORT}:${RESULT_API_PORT}"
     networks:
