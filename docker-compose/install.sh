@@ -62,20 +62,24 @@ export ACCEPT_LOGSIGHT_LICENSE="$1"
 # Promt for elasticsearch password if the env variable is not set
 if [ -z ${ELASTICSEARCH_PASSWORD+x} ]; then
     stty -echo
-    printf "Choose elasticsearch password: "
+    while ! echo "$ELASTICSEARCH_PASSWORD" | grep -P '(?=^.{8,255}$)(?=^[^\s]*$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])'
+    do
+    echo "Choose elasticsearch password: \n -minimum 8 characters \n -must contain special characters \n -must contain lower and uppercase letters \n -must contain a number)"
     read ELASTICSEARCH_PASSWORD
-    stty echo
     printf "\n"
+    done
 fi
 export ELASTICSEARCH_PASSWORD=$ELASTICSEARCH_PASSWORD
 
 # Promt for postgres password if the env variable is not set
 if [ -z ${POSTGRES_PASSWORD+x} ]; then
     stty -echo
-    printf "Choose postgres DB password: "
+    while ! echo "$POSTGRES_PASSWORD" | grep -P '(?=^.{8,255}$)(?=^[^\s]*$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])'
+    do
+    echo "Choose postgres password: \n -minimum 8 characters \n -must contain special characters \n -must contain lower and uppercase letters \n -must contain a number)"
     read POSTGRES_PASSWORD
-    stty echo
     printf "\n"
+    done
 fi
 export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
