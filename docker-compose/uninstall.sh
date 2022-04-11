@@ -29,4 +29,10 @@ export ACCEPT_LOGSIGHT_LICENSE=""
 cd "$home/docker-compose"
 $DOCKER_COMPOSE_CMD down -v --rmi 'all'
 
-echo "Uninstall logsight successful"
+if [ $? -eq 0 ]; then
+    echo "Uninstall logsight successful."
+else
+    echo "Uninstall logsight went wrong."
+fi
+
+cd "$home" 
