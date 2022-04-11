@@ -60,28 +60,38 @@ check_license "$1"
 export ACCEPT_LOGSIGHT_LICENSE="$1"
 
 # Promt for elasticsearch password if the env variable is not set
-if [ -z ${ELASTICSEARCH_PASSWORD+x} ]; then
-    stty -echo
-    while ! echo "$ELASTICSEARCH_PASSWORD" | grep -P '(?=^.{8,255}$)(?=^[^\s]*$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])'
-    do
-    echo "Choose elasticsearch password: \n -minimum 8 characters \n -must contain special characters \n -must contain lower and uppercase letters \n -must contain a number)"
+stty -echo
+while ! echo "$ELASTICSEARCH_PASSWORD" | grep -qP '(?=^.{6,255}$)(?=^[a-zA-Z0-9]*$)(?=.*[a-zA-Z])'; do
+    echo "Choose elasticsearch password:"
+    echo " -minimum 6 characters"
+    echo " -allowed characters [a-zA-Z0-9]"
+    echo " -only numbers are not allowed"
     read ELASTICSEARCH_PASSWORD
-    printf "\n"
-    done
-fi
+    echo ""
+done
 export ELASTICSEARCH_PASSWORD=$ELASTICSEARCH_PASSWORD
 
+echo "#########################"
+echo "elasticsearch password ok"
+echo "#########################"
+echo ""
+
 # Promt for postgres password if the env variable is not set
-if [ -z ${POSTGRES_PASSWORD+x} ]; then
-    stty -echo
-    while ! echo "$POSTGRES_PASSWORD" | grep -P '(?=^.{8,255}$)(?=^[^\s]*$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])'
-    do
-    echo "Choose postgres password: \n -minimum 8 characters \n -must contain special characters \n -must contain lower and uppercase letters \n -must contain a number)"
+stty -echo
+while ! echo "$POSTGRES_PASSWORD" | grep -qP '(?=^.{6,255}$)(?=^[a-zA-Z0-9]*$)(?=.*[a-zA-Z])'; do
+    echo "Choose elasticsearch password:"
+    echo " -minimum 6 characters"
+    echo " -allowed characters [a-zA-Z0-9]"
+    echo " -only numbers are not allowed"
     read POSTGRES_PASSWORD
-    printf "\n"
-    done
-fi
+    echo ""
+done
 export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+
+echo "####################"
+echo "postgres password ok"
+echo "####################"
+echo ""
 
 cd "$home/docker-compose"
 $DOCKER_COMPOSE_CMD up -d
@@ -89,8 +99,9 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "Waiting until all services are ready..."
     # This will be improved soon
-    sleep 40
+    sleep 1
     echo ""
     echo "Logsight.ai was successfully installed. You can access http://localhost:4200"
+    echo ""
 fi
 cd "$home"
