@@ -106,7 +106,7 @@ print_pw_requirements() {
     echo "Set $1 password:">&2
     echo " -minimum 6 characters">&2
     echo " -allowed characters [a-zA-Z0-9]">&2
-    echo " -only numbers are not allowed">&2
+    echo " -a password consisting of numbers only is not allowed">&2
 }
 
 wait_for_logsight() {
