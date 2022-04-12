@@ -79,17 +79,11 @@ promt_password() {
 }
 
 promt_uninstall() {
-    stty -echo
     printf "Do you want to re-install logsight? (y/n) ">&2
     read UNINSTALL
-    printf "\n">&2
-    stty echo
     while ! echo "$UNINSTALL" | grep -qP '(?=^[y|n]$)'; do
-        stty -echo
         printf "Please enter 'y' or 'n': ">&2
         read UNINSTALL
-        printf "\n">&2
-        stty echo
     done
     echo $UNINSTALL
 }
@@ -145,7 +139,7 @@ if [ "$uninstall" = "y" ]; then
         exit 1
     fi
 elif [ "$uninstall" = "n" ]; then
-    echo "running logsight installation must be uninstalled before re-installation"
+    echo "the currently running logsight installation must be uninstalled before re-installation"
     exit 0
 fi
 
