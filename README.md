@@ -19,6 +19,11 @@ Switch into the ```logsight-install``` directory
 cd logsight-install
 ```
 
+If you have cloned the logsight-install repository already, you should check it for updates by runing
+```bash
+git pull
+```
+
 ## Installation with docker-compose
 
 We provide all logsight.ai services as [Docker Images](https://hub.docker.com/orgs/logsight/repositories) which you can spin up with docker-compse. All compose, configuration and utility script files are located in the ```docker-compose``` directory.
@@ -38,6 +43,8 @@ export ELASTICSEARCH_PASSWORD=<set a password>
 ```bash
 export POSTGRES_PASSWORD=<set a password>
 ```
+
+The password must comply to some minimum requirements, which are checked during the installation process.
 
 When all services are running, you can access the logsight.ai landing page via [http://localhost:4200](http://localhost:4200).
 
