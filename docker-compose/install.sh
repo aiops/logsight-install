@@ -39,9 +39,9 @@ DOCKER_COMPOSE_CMD="$(check_docker_compose)"
 
 # Check if the EULA licens was accepted
 if [ "$#" -lt 1 ]; then
-    license_missing
+    license_missing "install.sh"
 fi
-check_license "$1"
+check_license "$1" "install.sh"
 export ACCEPT_LOGSIGHT_LICENSE="$1"
 
 reinstall_or_update=$(check_logsight_services_running_while_install "$DOCKER_COMPOSE_CMD")
