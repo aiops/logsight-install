@@ -5,9 +5,15 @@ home="$(cd -- "$(dirname -- "$0")"; pwd)"
 set -e
 
 license_missing() {
-    echo "Logsight license not accepted. You need to accept the EULA when installing logsight."
+    echo "Logsight license not accepted. You need to accept the EULA when installing logsight:"
+    echo ""
+    echo "##########################################################################################"
+    echo "#  https://raw.githubusercontent.com/aiops/logsight-install/main/eula/logsight-eula.txt  #"
+    echo "##########################################################################################"
+    echo ""
     echo "Please set the first command line argument for this script to 'accept-license'"
-    echo "Run installation: ./install.sh accept-license"
+    echo ""
+    echo "./install.sh accept-license"
     echo ""
     exit 1
 }
