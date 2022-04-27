@@ -50,10 +50,11 @@ fi
 echo "Uninstalling logsight..."
 cd "$home/docker-compose"
 $DOCKER_COMPOSE_CMD $args
-cd "$home"
 
 if [ $? -eq 0 ]; then
     echo "Uninstall logsight successful."
 else
     echo "Uninstall logsight went wrong."
 fi 
+
+cd "$home"
