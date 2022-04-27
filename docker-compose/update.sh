@@ -65,7 +65,7 @@ fi
 
 cd "$home/docker-compose"
 . "./.pw.env"
-$DOCKER_COMPOSE_CMD up -d
+"$DOCKER_COMPOSE_CMD" up -d
 cd "$home"
 if [ $? -eq 0 ]; then
     echo ""
