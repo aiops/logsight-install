@@ -63,3 +63,5 @@ dmypy.json
 *.ini
 .DS_store
 
+.pw.env
+
