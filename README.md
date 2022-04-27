@@ -68,9 +68,8 @@ To uninstall logsight run
 ./docker-compose/uninstall.sh
 ```
 
-All docker-compose services are shut down. Furthermore, all volumes and images are deleted.
-
-> **Important:** Uninstalling logsight will result in the deletion of all databases. Be aware of the data loss. Implementing a more flexible uninstallation process is currently on our roadmap. Check this [issue](https://github.com/aiops/logsight-install/issues/13) for further insights.
+During the uninstallation you can decide whether to delete the logsight data and docker images.
+Deleting logsight data will delete the postgres and elasticsearch database volumes.
 
 # Documentation
 

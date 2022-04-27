@@ -79,7 +79,7 @@ echo "export POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> "$home/docker-compose/.pw.
 cd "$home/docker-compose"
 . "./.pw.env"
 $DOCKER_COMPOSE_CMD up -d
-cd "$home"
+
 if [ $? -eq 0 ]; then
     echo ""
     wait_for_logsight $WAIT_FOR_TIME
@@ -87,3 +87,5 @@ if [ $? -eq 0 ]; then
     echo "Logsight.ai was successfully installed. You can access http://localhost:4200"
     echo ""
 fi
+
+cd "$home"
