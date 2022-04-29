@@ -21,7 +21,7 @@ promt_reinstall_or_update() {
 check_logsight_services_running_while_install() {
     DOCKER_COMPOSE_CMD="$1"
     cd "$home/docker-compose"
-    running="$($DOCKER_COMPOSE_CMD ps --services --filter "status=running")"
+    running="$($DOCKER_COMPOSE_CMD ps --services --filter 'status=running' 2>/dev/null)"
     if [ ! -z "$running" ]; then
         echo "logsight services are already installed and running.">&2
         REINSTALL_OR_UPDATE="$(promt_reinstall_or_update)"
