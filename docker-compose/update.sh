@@ -21,7 +21,7 @@ promt_install_logsight() {
 check_logsight_services_running_while_update() {
     DOCKER_COMPOSE_CMD="$1"
     cd "$home/docker-compose"
-    running="$($DOCKER_COMPOSE_CMD ps --services --filter "status=running")"
+    running="$($DOCKER_COMPOSE_CMD ps --services --filter 'status=running' 2>/dev/null)"
     if [ ! -z "$running" ]; then
         UNINSTALL=""
     else
