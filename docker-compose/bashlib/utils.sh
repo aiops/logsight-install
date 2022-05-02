@@ -19,7 +19,7 @@ license_missing() {
 }
 
 check_license() {
-    if ! (echo "$1" | grep -Eq  ^.*accept-license.*$); then
+    if ! (echo "$1" | grep -qE  ^.*accept-license.*$); then
         license_missing "$2"
     fi
 }
@@ -53,7 +53,7 @@ check_docker_compose() {
 
 is_password_valid() {
     PASSWORD=$1
-    if echo "$PASSWORD" | grep -qP '(?=^.{6,255}$)(?=^[a-zA-Z0-9]*$)(?=.*[a-zA-Z])'; then
+    if echo "$PASSWORD" | grep -E '^.{6,255}$' | grep -E '^[a-zA-Z0-9]*$' | grep -qE '.*[a-zA-Z]' ; then
         return 0  # this is valid --> true
     else
         return 1  # this is not valid --> false
