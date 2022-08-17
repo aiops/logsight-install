@@ -8,28 +8,28 @@ export WAIT_FOR_TIME=10
 
 . "$home/bashlib/utils.sh"
 
-promt_install_logsight() {
+prompt_install_logsight() {
     printf "Do you want to install logsight? (y/n) ">&2
-    read UNINSTALL
+    read -r UNINSTALL
     while ! echo "$UNINSTALL" | grep -qP '(?=^[y|n]$)'; do
         printf "Please enter 'y' or 'n': ">&2
-        read UNINSTALL
+        read -r UNINSTALL
     done
-    echo $UNINSTALL
+    echo "$UNINSTALL"
 }
 
 check_logsight_services_running_while_update() {
     DOCKER_COMPOSE_CMD="$1"
     cd "$home/docker-compose"
     running="$($DOCKER_COMPOSE_CMD ps --services --filter 'status=running' 2>/dev/null)"
-    if [ ! -z "$running" ]; then
+    if [ -n "$running" ]; then
         UNINSTALL=""
     else
         echo "logsight services are not installed.">&2
-        UNINSTALL="$(promt_install_logsight)"
+        UNINSTALL="$(prompt_install_logsight)"
     fi
     cd "$home"
-    echo $UNINSTALL
+    echo "$UNINSTALL"
 }
 
 # Check if the preconditions to install logsight are met
@@ -37,7 +37,7 @@ check_docker
 # Check docker compose and set the docker compose command variable
 DOCKER_COMPOSE_CMD="$(check_docker_compose)"
 
-# Check if the EULA licens was accepted
+# Check if the EULA license was accepted
 if [ "$#" -lt 1 ]; then
     license_missing "update.sh"
 fi
@@ -47,27 +47,27 @@ export ACCEPT_LOGSIGHT_LICENSE="$1"
 install=$(check_logsight_services_running_while_update "$DOCKER_COMPOSE_CMD")
 if [ "$install" = "y" ]; then
     echo "installing logsight..."
-    "$home/install.sh" "$ACCEPT_LOGSIGHT_LICENSE"
-    if [ $? -ne 0 ]; then
+
+    if ! sh "$home/install.sh" "$ACCEPT_LOGSIGHT_LICENSE"; then
         echo "error during installation of logsight."
         exit 1
     fi
 elif [ "$install" = "n" ]; then
-    echo "logsight must be installated before updateing"
+    echo "logsight must be installed before updating"
     exit 0
 fi
 
 if [ ! -f "$home/docker-compose/.pw.env" ]; then
-    echo "the password file $home/docker-compose/.pw.env does not exist. cannot contunue the update process."
-    echo "this is probably due to an depricated installation of logsight. please try to reinstall logsight."
+    echo "the password file $home/docker-compose/.pw.env does not exist. cannot continue the update process."
+    echo "this is probably due to an deprecated installation of logsight. please try to reinstall logsight."
     exit 1
 fi
 
 cd "$home/docker-compose"
 . "./.pw.env"
-$DOCKER_COMPOSE_CMD up -d
 
-if [ $? -eq 0 ]; then
+
+if ! $DOCKER_COMPOSE_CMD up -d; then
     echo ""
     wait_for_logsight $WAIT_FOR_TIME
     echo ""
