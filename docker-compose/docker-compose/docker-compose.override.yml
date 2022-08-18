@@ -4,6 +4,9 @@ services:
   logsight-backend:
     image: logsight/logsight-backend:${DOCKER_IMAGE_TAG}
     restart: always
+    hostname:
+      logsight-backend
+    container_name: logsight-backend
     env_file:
       - .env
     environment:
@@ -22,6 +25,9 @@ services:
 
   logsight-frontend:
     image: logsight/logsight-frontend:${DOCKER_IMAGE_TAG}
+    hostname:
+      logsight-frontend
+    container_name: logsight-frontend
     depends_on:
       - logsight-backend
     restart: always
@@ -37,6 +43,9 @@ services:
 
   logsight-pipeline:
     image: logsight/logsight-pipeline:${DOCKER_IMAGE_TAG}
+    hostname:
+      logsight-pipeline
+    container_name: logsight-pipeline
     depends_on:
       - logsight-backend
     restart: always
@@ -55,6 +64,9 @@ services:
   logsight-jobs:
     image: logsight/logsight-jobs:${DOCKER_IMAGE_TAG}
     restart: always
+    hostname:
+      logsight-jobs
+    container_name: logsight-jobs
     env_file:
       - .env
     environment:
@@ -73,6 +85,9 @@ services:
     depends_on:
       - logsight-pipeline
     restart: always
+    hostname:
+      logsight-result-api
+    container_name: logsight-result-api
     env_file:
       - .env
     environment:
