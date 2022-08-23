@@ -60,17 +60,17 @@ is_password_valid() {
     fi
 }
 
-promt_password() {
+prompt_password() {
     stty -echo
     printf "Password: ">&2
-    read PASSWORD
+    read -r PASSWORD
     printf "\n" >&2
     stty echo
     while ! is_password_valid "$PASSWORD"; do
         echo "Invalid password">&2
         stty -echo
         printf "Password: ">&2
-        read PASSWORD
+        read -r PASSWORD
         printf "\n">&2
         stty echo
     done
@@ -78,7 +78,7 @@ promt_password() {
     echo "password ok">&2
     echo "###########">&2
     echo "">&2
-    echo $PASSWORD
+    echo "$PASSWORD"
 }
 
 print_pw_requirements() {
@@ -91,9 +91,9 @@ print_pw_requirements() {
 wait_for_logsight() {
     WAIT_FOR_TIME=$1
     echo "Waiting until all services are ready...">&2
-    sleep $WAIT_FOR_TIME
+    sleep "$WAIT_FOR_TIME"
     echo "Setting up database...">&2
-    sleep $WAIT_FOR_TIME
+    sleep "$WAIT_FOR_TIME"
     echo "Creating default user space...">&2
-    sleep $WAIT_FOR_TIME
+    sleep "$WAIT_FOR_TIME"
 }
