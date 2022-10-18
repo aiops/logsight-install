@@ -2,7 +2,7 @@
 version: '3.7'
 services:
   logsight-backend:
-    image: logsight/logsight-backend:${DOCKER_IMAGE_TAG}
+    image: logsight/logsight-backend:${DOCKER_IMAGE_TAG_LOGSIGHT_BACKEND}
     restart: always
     hostname:
       logsight-backend
@@ -24,7 +24,7 @@ services:
       - logsight
 
   logsight-frontend:
-    image: logsight/logsight-frontend:${DOCKER_IMAGE_TAG}
+    image: logsight/logsight-frontend:${DOCKER_IMAGE_TAG_LOGSIGHT_FRONTEND}
     hostname:
       logsight-frontend
     container_name: logsight-frontend
@@ -42,7 +42,7 @@ services:
       - logsight
 
   logsight-pipeline:
-    image: logsight/logsight-pipeline:${DOCKER_IMAGE_TAG}
+    image: logsight/logsight-pipeline:${DOCKER_IMAGE_TAG_LOGSIGHT_PIPELINE}
     hostname:
       logsight-pipeline
     container_name: logsight-pipeline
@@ -62,7 +62,7 @@ services:
       - logsight
 
   logsight-jobs:
-    image: logsight/logsight-jobs:${DOCKER_IMAGE_TAG}
+    image: logsight/logsight-jobs:${DOCKER_IMAGE_TAG_LOGSIGHT_JOBS}
     restart: always
     hostname:
       logsight-jobs
@@ -81,7 +81,7 @@ services:
       - logsight
 
   logsight-result-api:
-    image: logsight/logsight-result-api:${DOCKER_IMAGE_TAG}
+    image: logsight/logsight-result-api:${DOCKER_IMAGE_TAG_LOGSIGHT_RESULT_API}
     depends_on:
       - logsight-pipeline
     restart: always
